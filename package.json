@@ -1,0 +1,23 @@
+{
+  "name": "cortexorbit",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c gray,blue \"npm:dev -w @cortex/server\" \"npm:dev -w @cortex/web\"",
+    "build": "npm run build -w @cortex/web",
+    "start": "npm run start -w @cortex/server",
+    "typecheck": "tsc -p packages/core && tsc -p apps/server && tsc -p apps/web",
+    "test": "node --test --experimental-strip-types packages/core/test/*.test.ts",
+    "seed": "npm run seed -w @cortex/server --"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "concurrently": "^10.0.5",
+    "typescript": "^7.0.2"
+  }
+}
