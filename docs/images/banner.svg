@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="1280" height="360">
+  <defs>
+    <radialGradient id="sun" cx="0.72" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#f5efe5"/>
+      <stop offset="0.55" stop-color="#e9dfd0"/>
+      <stop offset="1" stop-color="#ddcfb9"/>
+    </radialGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#e09412" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#e09412" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#e09412" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0.42  0 0 0 0 0.27  0 0 0 0 0.12  0 0 0 0.12 0"/>
+    </filter>
+    <clipPath id="frame"><rect width="1280" height="360" rx="28"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <rect width="1280" height="360" fill="url(#sun)"/>
+    <rect width="1280" height="360" filter="url(#grain)"/>
+
+    <!-- the instrument: engraved declination circles, hour lines, marble scale ring -->
+    <g transform="translate(930 180)" fill="none" stroke="#2b1d12">
+      <g stroke-opacity="0.08">
+        <circle r="60"/><circle r="120"/><circle r="180"/><circle r="240"/>
+        <path d="M0-270V270M-270 0H270M-191-191 191 191M-191 191 191-191M-104-251 104 251M104-251-104 251M-251-104 251 104M-251 104 251-104"/>
+      </g>
+      <circle r="268" stroke-opacity="0.22"/>
+      <circle r="290" stroke-opacity="0.22"/>
+      <circle r="279" stroke="#f5efe5" stroke-width="20" stroke-opacity="0.6"/>
+      <circle r="275" stroke-opacity="0.32" stroke-dasharray="1 8.6"/>
+      <circle r="279" stroke-opacity="0.42" stroke-width="10" stroke-dasharray="1 47.7"/>
+    </g>
+
+    <!-- the sky -->
+    <g fill="none" stroke="#2b1d12" stroke-opacity="0.35" stroke-width="1.2">
+      <path d="M820 120 900 168 1010 130M900 168 880 252 980 240M1010 130 1090 210"/>
+    </g>
+    <circle cx="820" cy="120" r="34" fill="url(#glow)"/>
+    <circle cx="900" cy="168" r="48" fill="url(#glow)"/>
+    <circle cx="1010" cy="130" r="30" fill="url(#glow)"/>
+    <circle cx="820" cy="120" r="7" fill="#2b1d12"/>
+    <circle cx="900" cy="168" r="10" fill="#2b1d12"/>
+    <circle cx="1010" cy="130" r="6.5" fill="#2b1d12"/>
+    <circle cx="980" cy="240" r="5" fill="#2b1d12" fill-opacity="0.55"/>
+    <circle cx="880" cy="252" r="7" fill="none" stroke="#57412e" stroke-dasharray="2 2.5"/>
+    <circle cx="1090" cy="210" r="4" fill="#2b1d12" fill-opacity="0.45"/>
+    <path d="M1060 64c16-1 30 8 29 22-1 15-16 24-32 23-15-1-26-11-24-24 2-12 13-20 30-19" fill="none" stroke="#b8321f" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M1095 86 1072 84" stroke="#b8321f" stroke-dasharray="2 4" stroke-width="1.2"/>
+
+    <!-- mark + wordmark -->
+    <g transform="translate(84 92)">
+      <circle cx="34" cy="34" r="32" fill="#e09412"/>
+      <path d="M11 31h46a23 23 0 0 1-46 0Z" fill="#2b1d12"/>
+      <path d="M34 31 45 13" stroke="#2b1d12" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="22" cy="19" r="4.2" fill="#2b1d12"/>
+    </g>
+    <text x="172" y="146" font-family="Rajdhani, 'Arial Narrow', 'Segoe UI', sans-serif" font-weight="700" font-size="68" fill="#2b1d12" letter-spacing="0.5">Cortex<tspan fill="#c27a06">Orbit</tspan></text>
+    <text x="88" y="210" font-family="Rajdhani, 'Segoe UI', sans-serif" font-weight="600" font-size="30" fill="#57412e">Your second brain, weaponized.</text>
+    <text x="88" y="252" font-family="'Segoe UI', Yantramanav, sans-serif" font-size="19" fill="#6e5845">A living sky of everything you learn. Stars fade as you forget,</text>
+    <text x="88" y="280" font-family="'Segoe UI', Yantramanav, sans-serif" font-size="19" fill="#6e5845">and it quizzes you before they go dark.</text>
+  </g>
+</svg>
