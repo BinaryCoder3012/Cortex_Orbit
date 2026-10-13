@@ -1,0 +1,111 @@
+/* Sandstone Observatory. Jantar Mantar at golden hour: sandstone instruments,
+   inlaid marble scales, umber pigment, saffron sun, vermilion scribe's ink,
+   Jaipur blue-pottery indigo. "Day" is sunlit stone; "night" is lamplit. */
+
+:root {
+  /* stone & marble */
+  --ground: #e9dfd0;
+  --stone: #ddcfb9;
+  --stone-deep: #cfbfa5;
+  --marble: #f5efe5;
+  --marble-2: #fbf8f2;
+  /* umber pigment */
+  --ink: #2b1d12;
+  --ink-2: #57412e;
+  --ink-3: #6e5845;
+  --line: rgb(43 29 18 / 0.14);
+  --line-strong: rgb(43 29 18 / 0.3);
+  /* sun */
+  --saffron: #e09412;
+  --saffron-deep: #c27a06;
+  --saffron-text: #8a5000;
+  --saffron-wash: rgb(224 148 18 / 0.14);
+  --on-saffron: #2b1d12;
+  /* scribe's vermilion: gaps, forgetting, destructive */
+  --vermilion: #b8321f;
+  --vermilion-text: #a32a18;
+  --vermilion-wash: rgb(184 50 31 / 0.1);
+  /* blue pottery indigo: remembered, re-exposed, charted */
+  --indigo: #2f4b8a;
+  --indigo-wash: rgb(47 75 138 / 0.1);
+
+  --shadow: 0 1px 1px rgb(74 48 20 / 0.06), 0 8px 24px -10px rgb(74 48 20 / 0.28);
+  --shadow-lift: 0 2px 3px rgb(74 48 20 / 0.08), 0 26px 50px -18px rgb(74 48 20 / 0.42);
+
+  --f-ui: 'Yantramanav', system-ui, sans-serif;
+  --f-display: 'Rajdhani', 'Yantramanav', sans-serif;
+  --f-hand: 'Kalam', cursive;
+
+  --r-s: 8px;
+  --r-m: 14px;
+  --r-l: 22px;
+  --r-pill: 999px;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-h: 64px;
+
+  color-scheme: light;
+}
+
+:root[data-print='positive'] {
+  --ground: #1a1410;
+  --stone: #221a14;
+  --stone-deep: #120d0a;
+  --marble: #2a211a;
+  --marble-2: #30261e;
+  --ink: #f2e7d6;
+  --ink-2: #cbb89f;
+  --ink-3: #a99479;
+  --line: rgb(242 231 214 / 0.12);
+  --line-strong: rgb(242 231 214 / 0.26);
+  --saffron: #f0a630;
+  --saffron-deep: #f6b74e;
+  --saffron-text: #f5b84c;
+  --saffron-wash: rgb(240 166 48 / 0.14);
+  --on-saffron: #1a1410;
+  --vermilion: #ef6a4f;
+  --vermilion-text: #f58068;
+  --vermilion-wash: rgb(239 106 79 / 0.13);
+  --indigo: #94acec;
+  --indigo-wash: rgb(148 172 236 / 0.13);
+  --shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 10px 26px -10px rgb(0 0 0 / 0.65);
+  --shadow-lift: 0 2px 3px rgb(0 0 0 / 0.35), 0 26px 50px -16px rgb(0 0 0 / 0.75);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-print]) {
+    --ground: #1a1410;
+    --stone: #221a14;
+    --stone-deep: #120d0a;
+    --marble: #2a211a;
+    --marble-2: #30261e;
+    --ink: #f2e7d6;
+    --ink-2: #cbb89f;
+    --ink-3: #a99479;
+    --line: rgb(242 231 214 / 0.12);
+    --line-strong: rgb(242 231 214 / 0.26);
+    --saffron: #f0a630;
+    --saffron-deep: #f6b74e;
+    --saffron-text: #f5b84c;
+    --saffron-wash: rgb(240 166 48 / 0.14);
+    --on-saffron: #1a1410;
+    --vermilion: #ef6a4f;
+    --vermilion-text: #f58068;
+    --vermilion-wash: rgb(239 106 79 / 0.13);
+    --indigo: #94acec;
+    --indigo-wash: rgb(148 172 236 / 0.13);
+    --shadow: 0 1px 1px rgb(0 0 0 / 0.3), 0 10px 26px -10px rgb(0 0 0 / 0.65);
+    --shadow-lift: 0 2px 3px rgb(0 0 0 / 0.35), 0 26px 50px -16px rgb(0 0 0 / 0.75);
+    color-scheme: dark;
+  }
+}
