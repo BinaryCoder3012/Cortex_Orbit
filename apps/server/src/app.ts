@@ -49,9 +49,18 @@ app.get('/health', (c) => c.json({ ai: aiEnabled ? 'online' : 'offline', provide
 // ── atlas ──────────────────────────────────────────────────────────────────
 
 app.get('/atlas', (c) => {
+  let concepts = repo.listConcepts();
+  if (concepts.length === 0) {
+    try {
+      seed();
+      concepts = repo.listConcepts();
+    } catch (e) {
+      console.warn('Auto-seed failed:', e);
+    }
+  }
   const memory = repo.memoryByConcept();
   const payload: AtlasPayload = {
-    concepts: repo.listConcepts(),
+    concepts,
     edges: repo.listEdges(),
     memory: Object.fromEntries(memory),
     gaps: repo.listGaps('open'),

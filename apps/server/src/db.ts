@@ -4,7 +4,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-export const DATA_DIR = process.env.CORTEX_DATA_DIR ?? path.resolve(here, '../../../data');
+const defaultDir = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+  ? '/tmp/cortex-data'
+  : path.resolve(here, '../../../data');
+export const DATA_DIR = process.env.CORTEX_DATA_DIR ?? defaultDir;
 mkdirSync(DATA_DIR, { recursive: true });
 
 export const db = new DatabaseSync(path.join(DATA_DIR, 'cortex.db'));

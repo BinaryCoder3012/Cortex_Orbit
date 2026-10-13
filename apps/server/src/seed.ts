@@ -205,7 +205,7 @@ const gaps: [name: string, summary: string, reason: string, between: string[]][]
   ['Two-Phase Locking', 'A concurrency protocol where a transaction acquires all its locks before releasing any, guaranteeing serializability.', 'You know Isolation Levels and MVCC; two-phase locking is the classic alternative MVCC is usually contrasted with.', ['Isolation Levels', 'MVCC', 'Transaction']],
 ];
 
-export function seed(reset: boolean) {
+export function seed(reset = false) {
   if (reset) db.exec('DELETE FROM reviews; DELETE FROM gaps; DELETE FROM sources; DELETE FROM concepts;');
   const now = Date.now();
   const ago = (d: number) => new Date(now - d * DAY_MS);
