@@ -427,3 +427,6 @@ app.get('/export/markdown', (c) => {
 });
 
 export { develop };
+
+// Vercel's Hono preset picks src/app.ts as the entry and calls its default export.
+export default app;
