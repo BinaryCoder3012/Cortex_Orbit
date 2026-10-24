@@ -50,9 +50,20 @@ function detect(): ProviderId | null {
   return null;
 }
 
+// A hosted deployment cannot reach an Ollama running on someone's laptop.
+function unreachable(id: ProviderId): boolean {
+  if (id !== 'ollama' || !process.env.VERCEL) return false;
+  const host = env('OLLAMA_HOST') ?? 'localhost';
+  return /localhost|127\.0\.0\.1|0\.0\.0\.0/.test(host);
+}
+
 function build(): Provider | null {
   if (env('CORTEX_OFFLINE') === '1') return null;
-  const id = detect();
+  let id = detect();
+  if (id && unreachable(id)) {
+    console.warn('Ollama points at localhost, which a Vercel function cannot reach; trying the other keys.');
+    id = env('GEMINI_API_KEY') || env('GOOGLE_API_KEY') ? 'gemini' : null;
+  }
   if (!id) return null;
   const d = DEFAULTS[id];
   const apiKey =

@@ -23,10 +23,16 @@ if (existsSync(webDist)) {
   root.get('*', serveStatic({ path: `${rel}/index.html` }));
 }
 
-serve({ fetch: root.fetch, port }, () => {
+// On Vercel the platform imports this module and calls the exported app;
+// only a long-running process should open a port.
+const serverless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+
+if (!serverless) serve({ fetch: root.fetch, port }, () => {
   console.log(`CortexOrbit observatory on http://localhost:${port}`);
   console.log(aiEnabled
       ? `  AI: ${provider!.label} · ${MODEL}`
       : '  offline mode: heuristic extraction (add a Claude, Gemini, OpenRouter or Groq key to .env, or set AI_PROVIDER=ollama)');
   resumePending();
 });
+
+export default root;

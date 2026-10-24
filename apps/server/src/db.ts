@@ -8,12 +8,23 @@ const defaultDir = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
   ? '/tmp/cortex-data'
   : path.resolve(here, '../../../data');
 export const DATA_DIR = process.env.CORTEX_DATA_DIR ?? defaultDir;
-mkdirSync(DATA_DIR, { recursive: true });
 
-export const db = new DatabaseSync(path.join(DATA_DIR, 'cortex.db'));
+function open(): DatabaseSync {
+  try {
+    mkdirSync(DATA_DIR, { recursive: true });
+    const d = new DatabaseSync(path.join(DATA_DIR, 'cortex.db'));
+    d.exec('PRAGMA journal_mode = WAL;');
+    return d;
+  } catch (e) {
+    // Read-only or missing filesystem (some serverless hosts): keep working in memory.
+    console.warn(`Could not open ${DATA_DIR}/cortex.db, using an in-memory vault:`, e);
+    return new DatabaseSync(':memory:');
+  }
+}
+
+export const db = open();
 
 db.exec(`
-  PRAGMA journal_mode = WAL;
   PRAGMA foreign_keys = ON;
 
   CREATE TABLE IF NOT EXISTS sources (

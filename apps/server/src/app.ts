@@ -44,20 +44,27 @@ app.onError((err, c) => {
   return c.json({ error: 'Something broke on the server. The log has details.' }, 500);
 });
 
+// A serverless instance starts with an empty /tmp vault, so develop the sample
+// plate before the first request on hosted deployments.
+let seeded = !process.env.VERCEL;
+app.use('*', async (_c, next) => {
+  if (!seeded) {
+    seeded = true;
+    try {
+      if (repo.listConcepts().length === 0) seed();
+    } catch (e) {
+      console.warn('Auto-seed failed:', e);
+    }
+  }
+  await next();
+});
+
 app.get('/health', (c) => c.json({ ai: aiEnabled ? 'online' : 'offline', provider: provider?.label ?? null, model: MODEL }));
 
 // ── atlas ──────────────────────────────────────────────────────────────────
 
 app.get('/atlas', (c) => {
-  let concepts = repo.listConcepts();
-  if (concepts.length === 0) {
-    try {
-      seed();
-      concepts = repo.listConcepts();
-    } catch (e) {
-      console.warn('Auto-seed failed:', e);
-    }
-  }
+  const concepts = repo.listConcepts();
   const memory = repo.memoryByConcept();
   const payload: AtlasPayload = {
     concepts,

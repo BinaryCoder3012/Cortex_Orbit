@@ -184,6 +184,98 @@ The Feynman Technique: explain a concept in plain words as if to a beginner, fin
       ['Feynman Technique', 'cloze', 'In the Feynman Technique you explain an idea as if to a {{beginner}} to find where your understanding breaks.', 'beginner'],
     ],
   },
+  {
+    title: 'Sample: What happens when you load a web page',
+    daysAgo: 31,
+    text: `# What happens when you load a web page
+
+DNS turns a hostname into an IP address. The browser asks a recursive resolver, which walks from the root servers to the top-level domain servers to the domain's authoritative server, caching each answer for its TTL.
+
+TCP gives two programs a reliable, ordered byte stream over an unreliable network. A connection opens with the three-way handshake: SYN, SYN-ACK, ACK. Lost segments are retransmitted, and congestion control slows the sender when the network is full.
+
+TLS encrypts the connection and proves the server's identity. During the handshake the client checks the server's certificate against trusted certificate authorities and both sides agree on session keys. TLS 1.3 needs only one round trip.
+
+HTTP is the request-response protocol on top. A request has a method, a path, headers and an optional body; the response has a status code, headers and a body. HTTP/2 multiplexes many requests over one connection, and HTTP/3 runs over QUIC instead of TCP.
+
+Caching avoids repeating work. The Cache-Control header says how long a response stays fresh; an ETag lets the browser revalidate cheaply with a conditional request that returns 304 Not Modified.
+
+A CDN keeps copies of content at edge servers close to users, cutting latency and shielding the origin from load.`,
+    concepts: [
+      ['DNS', 'tool', 5, 'Resolves hostnames to IP addresses by walking from root to TLD to authoritative servers, caching answers for their TTL.', ['Domain Name System']],
+      ['TCP', 'tool', 5, 'A reliable, ordered byte stream over an unreliable network, with retransmission and congestion control.'],
+      ['Three-Way Handshake', 'pattern', 3, 'SYN, SYN-ACK, ACK: how TCP opens a connection and agrees on starting sequence numbers.'],
+      ['TLS', 'tool', 4, 'Encrypts a connection and authenticates the server with certificates; TLS 1.3 completes its handshake in one round trip.', ['HTTPS']],
+      ['HTTP', 'tool', 5, 'The request-response protocol of the web: methods, paths, headers, status codes and bodies.'],
+      ['HTTP Caching', 'technique', 3, 'Cache-Control sets freshness; ETags allow cheap revalidation that returns 304 Not Modified.', ['Cache-Control', 'ETag']],
+      ['CDN', 'tool', 3, 'Edge servers near users that hold copies of content, cutting latency and shielding the origin.', ['Content Delivery Network']],
+      ['QUIC', 'tool', 2, 'A UDP-based transport with built-in encryption that HTTP/3 uses instead of TCP.'],
+    ],
+    edges: [
+      ['DNS', 'TCP', 'prerequisite'],
+      ['Three-Way Handshake', 'TCP', 'part_of'],
+      ['TCP', 'TLS', 'prerequisite'],
+      ['TLS', 'HTTP', 'prerequisite'],
+      ['HTTP', 'HTTP Caching', 'prerequisite'],
+      ['HTTP Caching', 'CDN', 'related'],
+      ['QUIC', 'TCP', 'contrasts'],
+    ],
+    cards: [
+      ['DNS', 'qa', 'In what order does a recursive resolver ask servers about a new hostname?', 'Root servers, then the TLD servers, then the domain’s authoritative server.'],
+      ['DNS', 'cloze', 'A DNS answer is cached for the length of its {{TTL}}.', 'TTL'],
+      ['TCP', 'qa', 'What two guarantees does TCP add on top of IP?', 'Reliable delivery (retransmission) and in-order delivery.'],
+      ['Three-Way Handshake', 'mcq', 'Which sequence opens a TCP connection?', 'SYN, SYN-ACK, ACK', ['SYN, SYN-ACK, ACK', 'ACK, SYN, FIN', 'HELLO, KEY, DONE', 'SYN, ACK, FIN']],
+      ['TLS', 'qa', 'How does the client know it is talking to the real server?', 'It checks the server’s certificate chain against trusted certificate authorities.'],
+      ['HTTP', 'qa', 'What does HTTP/2 change about how requests share a connection?', 'It multiplexes many concurrent requests over a single connection.'],
+      ['HTTP Caching', 'qa', 'What does a 304 Not Modified response mean?', 'The cached copy (matched by ETag) is still valid, so no body is resent.'],
+      ['CDN', 'qa', 'Name two benefits of a CDN.', 'Lower latency for users and less load on the origin server.'],
+      ['QUIC', 'cloze', 'HTTP/3 runs over {{QUIC}}, which is built on UDP.', 'QUIC'],
+    ],
+  },
+  {
+    title: 'Sample: Machine learning, the core loop',
+    daysAgo: 16,
+    text: `# Machine learning, the core loop
+
+Supervised learning fits a model to labelled examples so it can predict labels for new inputs. A loss function measures how wrong a prediction is; training means adjusting the model's parameters to make the average loss small.
+
+Gradient descent is the workhorse optimiser. It computes the gradient of the loss with respect to each parameter and steps the parameters a little way downhill. The learning rate sets the step size: too large and training diverges, too small and it crawls.
+
+Backpropagation computes those gradients efficiently in a neural network by applying the chain rule layer by layer, from the output back to the input.
+
+Overfitting is when a model memorises the training data, noise included, and does worse on new data. A held-out validation set reveals it: training loss keeps falling while validation loss rises.
+
+Regularization fights overfitting by penalising complexity. L2 regularization adds the squared size of the weights to the loss; dropout randomly switches off units during training.
+
+The bias-variance tradeoff names the tension: simple models underfit (high bias), flexible models overfit (high variance), and good models sit between.`,
+    concepts: [
+      ['Supervised Learning', 'idea', 5, 'Fitting a model to labelled examples so it predicts labels for unseen inputs.'],
+      ['Loss Function', 'term', 4, 'Measures how wrong a prediction is; training minimises its average over the data.', ['Cost Function']],
+      ['Gradient Descent', 'technique', 5, 'Repeatedly steps parameters against the gradient of the loss, with the learning rate setting the step size.'],
+      ['Learning Rate', 'term', 3, 'The step size of gradient descent: too large diverges, too small crawls.'],
+      ['Backpropagation', 'technique', 4, 'Computes a network’s gradients by applying the chain rule from the output layer back to the input.', ['Backprop']],
+      ['Overfitting', 'idea', 4, 'Memorising training data, noise included, so performance on new data suffers; visible as rising validation loss.'],
+      ['Regularization', 'technique', 3, 'Penalising model complexity, e.g. L2 weight penalties or dropout, to curb overfitting.', ['Dropout']],
+      ['Bias-Variance Tradeoff', 'principle', 4, 'Simple models underfit with high bias; flexible ones overfit with high variance; good models balance the two.'],
+    ],
+    edges: [
+      ['Loss Function', 'Gradient Descent', 'prerequisite'],
+      ['Learning Rate', 'Gradient Descent', 'part_of'],
+      ['Gradient Descent', 'Backpropagation', 'related'],
+      ['Supervised Learning', 'Loss Function', 'prerequisite'],
+      ['Overfitting', 'Regularization', 'prerequisite'],
+      ['Overfitting', 'Bias-Variance Tradeoff', 'part_of'],
+    ],
+    cards: [
+      ['Supervised Learning', 'qa', 'What does supervised learning need that unsupervised learning does not?', 'Labelled examples: inputs paired with the correct outputs.'],
+      ['Loss Function', 'cloze', 'Training adjusts parameters to minimise the average {{loss}} over the data.', 'loss'],
+      ['Gradient Descent', 'qa', 'Which direction does gradient descent move the parameters, and why?', 'Against the gradient, because that is the direction in which the loss decreases fastest.'],
+      ['Learning Rate', 'mcq', 'Training loss explodes to NaN after a few steps. The most likely culprit?', 'Learning rate too high', ['Learning rate too high', 'Too much training data', 'Learning rate too low', 'Too few layers']],
+      ['Backpropagation', 'qa', 'Which rule from calculus does backpropagation apply?', 'The chain rule, layer by layer from output to input.'],
+      ['Overfitting', 'qa', 'How do the training and validation curves look when a model overfits?', 'Training loss keeps falling while validation loss starts to rise.'],
+      ['Regularization', 'qa', 'Name two regularization techniques.', 'L2 weight penalty and dropout (also early stopping, data augmentation).'],
+      ['Bias-Variance Tradeoff', 'explain', 'Explain the bias-variance tradeoff in your own words.', 'Simple models miss real patterns (high bias, underfit); very flexible models chase noise (high variance, overfit); the best generalisation lies between.'],
+    ],
+  },
 ];
 
 // How each concept has been treated: [days since last review, interval, reps].
@@ -197,11 +289,17 @@ const profiles: Record<string, [number, number, number] | null> = {
   'Third Normal Form': [6, 6, 2], 'Query Planner': null,
   'Forgetting Curve': [1, 6, 2], 'Spaced Repetition': [1, 6, 2], 'SM-2': null, 'Retrieval Practice': [3, 6, 2],
   Interleaving: null, 'Feynman Technique': [4, 1, 1],
+  DNS: [2, 20, 4], TCP: [3, 25, 5], 'Three-Way Handshake': [10, 6, 2], TLS: [16, 4, 2], HTTP: [1, 30, 5],
+  'HTTP Caching': [7, 6, 2], CDN: null, QUIC: null,
+  'Supervised Learning': [1, 12, 3], 'Loss Function': [2, 10, 3], 'Gradient Descent': [3, 8, 3], 'Learning Rate': [9, 3, 2],
+  Backpropagation: [6, 6, 2], Overfitting: [2, 6, 2], Regularization: null, 'Bias-Variance Tradeoff': [12, 2, 1],
 };
 
 const gaps: [name: string, summary: string, reason: string, between: string[]][] = [
   ['Context API', 'React’s built-in way to pass a value deep into the tree without threading props through every level.', 'You know Redux and Prop Drilling but not the built-in bridge between them: Context is how React itself avoids drilling before you reach for a store.', ['Redux', 'Prop Drilling', 'Props']],
   ['useReducer', 'A hook that manages local component state with a reducer function instead of several useState calls.', 'You have Reducer and useState catalogued separately; useReducer is where they meet inside a component.', ['Reducer', 'useState', 'Hooks']],
+  ['WebSockets', 'A protocol that upgrades an HTTP connection into a long-lived, two-way channel for real-time messages.', 'You know HTTP and TCP; WebSockets are how the request-response web gets a persistent duplex connection on top of them.', ['HTTP', 'TCP']],
+  ['Adam Optimizer', 'A gradient-descent variant that adapts a separate learning rate for each parameter using running averages of gradients.', 'You know Gradient Descent and Learning Rate; Adam is what most networks train with because it tunes the step size per parameter.', ['Gradient Descent', 'Learning Rate', 'Backpropagation']],
   ['Two-Phase Locking', 'A concurrency protocol where a transaction acquires all its locks before releasing any, guaranteeing serializability.', 'You know Isolation Levels and MVCC; two-phase locking is the classic alternative MVCC is usually contrasted with.', ['Isolation Levels', 'MVCC', 'Transaction']],
 ];
 

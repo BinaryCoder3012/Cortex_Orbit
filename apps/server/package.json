@@ -2,6 +2,7 @@
   "name": "@cortex/server",
   "version": "0.1.0",
   "private": true,
+  "engines": { "node": ">=22.13" },
   "type": "module",
   "scripts": {
     "dev": "node --watch --import tsx src/index.ts",
