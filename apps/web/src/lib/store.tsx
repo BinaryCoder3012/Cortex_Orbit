@@ -65,7 +65,7 @@ export function usePrint(): ['negative' | 'positive', (p: 'negative' | 'positive
   const read = () => {
     const explicit = document.documentElement.dataset.print as 'negative' | 'positive' | undefined;
     if (explicit) return explicit;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'positive' : 'negative';
+    return 'positive';
   };
   const [print, setPrint] = useState(read);
   const set = useCallback((p: 'negative' | 'positive') => {

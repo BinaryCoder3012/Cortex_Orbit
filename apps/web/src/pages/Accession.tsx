@@ -74,7 +74,7 @@ export function AccessionPage() {
         <div className="plaque sleeve">
           <div className="head">
             <h2>New accession</h2>
-            <span className="mono">{health?.ai === 'online' ? `read by ${health.provider} · ${health.model}` : 'offline reader'}</span>
+            <span className="mono">{health?.ai === 'online' ? 'read by AI' : 'offline reader'}</span>
           </div>
           <div className="seg" role="tablist" aria-label="What are you adding?" style={{ marginBottom: 16 }}>
             {(['link', 'file', 'note'] as const).map((t) => (

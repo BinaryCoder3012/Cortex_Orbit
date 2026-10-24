@@ -69,9 +69,9 @@ function Shell() {
           <div className="nav-right">
             <span
               className={`ai-dot${health?.ai === 'online' ? ' on' : ''}`}
-              title={health?.ai === 'online' ? `Extraction, grading and answers by ${health.provider} · ${health.model}` : 'Offline: add a Claude, Gemini, OpenRouter or Groq key to .env (or run Ollama) for AI extraction, grading and answers'}
+              title={health?.ai === 'online' ? 'AI extraction, grading and answers are on' : 'Offline: add a Claude, Gemini, OpenRouter or Groq key to .env (or run Ollama) for AI extraction, grading and answers'}
             >
-              <span>{health?.ai === 'online' ? health.provider : 'Offline'}</span>
+              <span>{health?.ai === 'online' ? 'API online' : 'Offline'}</span>
             </span>
             <button className="icon-btn" onClick={openPalette} aria-label="Find anything (Ctrl K)" title="Find anything (Ctrl K)">
               <Icon name="search" size={18} />

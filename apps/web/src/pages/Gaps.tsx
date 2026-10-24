@@ -55,7 +55,7 @@ export function GapsPage() {
           <h2>No open circles.</h2>
           <p>
             {health?.ai === 'online'
-              ? `Survey your sky and ${health.provider} will look for the concepts that connect your clusters.`
+              ? `Survey your sky and the AI will look for the concepts that connect your clusters.`
               : 'Offline, the survey looks for terms your sources keep using but never explain. With an AI key, it finds conceptual bridges.'}
           </p>
         </div>

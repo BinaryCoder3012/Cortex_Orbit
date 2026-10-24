@@ -9,8 +9,10 @@
     <script>
       try {
         const p = localStorage.getItem('cortex.print');
-        if (p) document.documentElement.dataset.print = p;
-      } catch {}
+        document.documentElement.dataset.print = p || 'positive';
+      } catch {
+        document.documentElement.dataset.print = 'positive';
+      }
     </script>
   </head>
   <body>

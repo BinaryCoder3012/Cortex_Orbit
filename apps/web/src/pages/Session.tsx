@@ -367,7 +367,7 @@ function ExplainRun({ conceptId, atlas, onDone }: { conceptId?: number; atlas: R
               {busy ? <span className="spinner" /> : null} Grade against my notes
             </button>
             <span className="muted" style={{ fontSize: '0.8rem', alignSelf: 'center' }}>
-              {health?.ai === 'online' ? `${health.provider} compares it with your sources.` : 'Offline: graded by overlap with your notes.'}
+              {health?.ai === 'online' ? 'The AI compares it with your sources.' : 'Offline: graded by overlap with your notes.'}
             </span>
           </div>
         </form>
